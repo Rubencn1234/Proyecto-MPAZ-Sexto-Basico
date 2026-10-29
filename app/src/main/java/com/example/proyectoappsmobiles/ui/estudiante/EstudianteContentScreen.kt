@@ -62,17 +62,29 @@ fun EstudianteContentScreen(
             TopAppBar(
                 title = {
                     Column {
-                        Text(text = selectedSubject?.title ?: "Contenido Explicativo", fontWeight = FontWeight.Bold)
-                        Text(text = "Sexto Básico • Mineduc", style = MaterialTheme.typography.bodyMedium)
+                        Text(
+                            text = selectedSubject?.title ?: "Contenido Explicativo",
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        Text(
+                            text = "Sexto Básico • Mineduc",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
                     }
                 },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Volver")
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Volver",
+                            tint = MaterialTheme.colorScheme.onSurface
+                        )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer
+                    containerColor = MaterialTheme.colorScheme.surface
                 )
             )
         }
@@ -94,12 +106,14 @@ fun EstudianteContentScreen(
                         Text(
                             text = "Aprende el Contenido",
                             style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.Bold
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
                             text = "Lee atentamente la explicación teórica, examina el recurso visual y escucha el audio explicativo opcional.",
-                            style = MaterialTheme.typography.bodyMedium
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
                         )
                     }
                 }
@@ -137,9 +151,13 @@ fun EstudianteContentScreen(
                             .height(52.dp),
                         shape = RoundedCornerShape(14.dp)
                     ) {
-                        Icon(imageVector = Icons.AutoMirrored.Filled.Assignment, contentDescription = null)
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.Assignment,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary
+                        )
                         Spacer(modifier = Modifier.width(6.dp))
-                        Text("Práctica")
+                        Text("Práctica", color = MaterialTheme.colorScheme.primary)
                     }
 
                     Button(
@@ -149,7 +167,10 @@ fun EstudianteContentScreen(
                             .height(52.dp),
                         shape = RoundedCornerShape(14.dp)
                     ) {
-                        Icon(imageVector = Icons.Default.Quiz, contentDescription = null)
+                        Icon(
+                            imageVector = Icons.Default.Quiz,
+                            contentDescription = null
+                        )
                         Spacer(modifier = Modifier.width(6.dp))
                         Text("Prueba Final")
                     }
@@ -184,12 +205,12 @@ private fun ContentItemCard(
 
             Text(
                 text = content.explanation,
-                style = MaterialTheme.typography.bodyLarge
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onSurface
             )
 
             Spacer(modifier = Modifier.height(14.dp))
 
-            // Visual Resource Card
             Surface(
                 color = MaterialTheme.colorScheme.secondaryContainer,
                 shape = RoundedCornerShape(14.dp),
@@ -202,18 +223,20 @@ private fun ContentItemCard(
                     Icon(
                         imageVector = Icons.Default.Image,
                         contentDescription = null,
-                        tint = MaterialTheme.colorScheme.secondary
+                        tint = MaterialTheme.colorScheme.onSecondaryContainer
                     )
                     Spacer(modifier = Modifier.width(12.dp))
                     Column {
                         Text(
                             text = "Recurso Visual:",
                             fontWeight = FontWeight.Bold,
-                            style = MaterialTheme.typography.bodyMedium
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSecondaryContainer
                         )
                         Text(
                             text = content.visualResourceHint,
-                            style = MaterialTheme.typography.bodyMedium
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSecondaryContainer
                         )
                     }
                 }
@@ -230,7 +253,8 @@ private fun ContentItemCard(
                     Text(
                         text = content.exampleText,
                         style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.SemiBold
+                        fontWeight = FontWeight.SemiBold,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
             }
@@ -253,9 +277,16 @@ private fun ContentItemCard(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(12.dp)
                 ) {
-                    Icon(imageVector = Icons.AutoMirrored.Filled.VolumeUp, contentDescription = null)
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.VolumeUp,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary
+                    )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text(if (isPlayingAudio) "Pausar Audio Explicativo" else "Escuchar Audio Explicativo (Opcional)")
+                    Text(
+                        text = if (isPlayingAudio) "Pausar Audio Explicativo" else "Escuchar Audio Explicativo (Opcional)",
+                        color = MaterialTheme.colorScheme.primary
+                    )
                 }
             }
         }

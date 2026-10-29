@@ -9,14 +9,15 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.proyectoappsmobiles.navigation.AppNavigation
-import com.example.proyectoappsmobiles.ui.theme.MPAZProTheme
+// 1. Actualizamos la importación al nuevo nombre del tema
+import com.example.proyectoappsmobiles.ui.theme.ProyectoAppsMobilesTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            MPAZProTheme {
+            ProyectoAppsMobilesTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background

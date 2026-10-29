@@ -38,6 +38,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.proyectoappsmobiles.data.local.entity.ContentEntity
@@ -62,17 +63,28 @@ fun UtpScreen(
             TopAppBar(
                 title = {
                     Column {
-                        Text(text = "Módulo Jefatura UTP", fontWeight = FontWeight.Bold)
-                        Text(text = "Revisión y Autorización de Contenidos", style = MaterialTheme.typography.bodyMedium)
+                        Text(
+                            text = "Módulo Jefatura UTP",
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(
+                            text = "Revisión y Autorización de Contenidos",
+                            style = MaterialTheme.typography.bodyMedium
+                        )
                     }
                 },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Volver")
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Volver"
+                        )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    titleContentColor = MaterialTheme.colorScheme.primary,
+                    navigationIconContentColor = MaterialTheme.colorScheme.primary
                 )
             )
         }
@@ -93,12 +105,14 @@ fun UtpScreen(
                         Text(
                             text = "Rol UTP: Control de Calidad Curricular",
                             style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSecondaryContainer
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
                             text = "Supervisa la concordancia pedagógica entre las explicaciones, los Objetivos de Aprendizaje (OA) y autoriza la publicación de recursos para los docentes y estudiantes.",
-                            style = MaterialTheme.typography.bodyMedium
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSecondaryContainer
                         )
                     }
                 }
@@ -125,7 +139,8 @@ private fun ContentUtpCard(
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(
@@ -154,7 +169,8 @@ private fun ContentUtpCard(
             Text(
                 text = content.title,
                 style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSurface
             )
 
             if (oa != null) {
@@ -169,7 +185,8 @@ private fun ContentUtpCard(
 
             Text(
                 text = "Explicación: ${content.explanation}",
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurface
             )
 
             Spacer(modifier = Modifier.height(6.dp))
@@ -178,7 +195,7 @@ private fun ContentUtpCard(
                 text = "Origen: ${content.origin.displayName} • ${content.referenceTextbook}",
                 style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.secondary
+                color = MaterialTheme.colorScheme.onSurface
             )
 
             Spacer(modifier = Modifier.height(14.dp))
@@ -186,7 +203,8 @@ private fun ContentUtpCard(
             Text(
                 text = "Cambiar Estado Curricular:",
                 style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSurface
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -200,9 +218,13 @@ private fun ContentUtpCard(
                         onClick = { onStatusChange(ContentStatus.EN_REVISION) },
                         modifier = Modifier.weight(1f)
                     ) {
-                        Icon(imageVector = Icons.Default.RateReview, contentDescription = null)
+                        Icon(
+                            imageVector = Icons.Default.RateReview,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary
+                        )
                         Spacer(modifier = Modifier.width(4.dp))
-                        Text("Revisar")
+                        Text("Revisar", color = MaterialTheme.colorScheme.primary)
                     }
                 }
 
@@ -212,9 +234,13 @@ private fun ContentUtpCard(
                         modifier = Modifier.weight(1f),
                         colors = ButtonDefaults.buttonColors(containerColor = StatusAutorizado)
                     ) {
-                        Icon(imageVector = Icons.Default.CheckCircle, contentDescription = null)
+                        Icon(
+                            imageVector = Icons.Default.CheckCircle,
+                            contentDescription = null,
+                            tint = Color.White
+                        )
                         Spacer(modifier = Modifier.width(4.dp))
-                        Text("Autorizar")
+                        Text("Autorizar", color = Color.White)
                     }
                 }
 
@@ -224,9 +250,13 @@ private fun ContentUtpCard(
                         modifier = Modifier.weight(1f),
                         colors = ButtonDefaults.buttonColors(containerColor = StatusPublicado)
                     ) {
-                        Icon(imageVector = Icons.Default.PublishedWithChanges, contentDescription = null)
+                        Icon(
+                            imageVector = Icons.Default.PublishedWithChanges,
+                            contentDescription = null,
+                            tint = Color.White
+                        )
                         Spacer(modifier = Modifier.width(4.dp))
-                        Text("Publicar")
+                        Text("Publicar", color = Color.White)
                     }
                 }
             }
@@ -245,12 +275,12 @@ private fun StatusChip(status: ContentStatus) {
 
     Box(
         modifier = Modifier
-            .background(color.copy(alpha = 0.15f), RoundedCornerShape(12.dp))
+            .background(color, RoundedCornerShape(12.dp))
             .padding(horizontal = 10.dp, vertical = 4.dp)
     ) {
         Text(
             text = text,
-            color = color,
+            color = Color.White,
             style = MaterialTheme.typography.bodyMedium,
             fontWeight = FontWeight.Bold
         )

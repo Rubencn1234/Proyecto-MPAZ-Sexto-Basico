@@ -47,6 +47,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -80,11 +81,15 @@ fun DocenteScreen(
                     },
                     navigationIcon = {
                         IconButton(onClick = onBack) {
-                            Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Volver")
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = "Volver",
+                                tint = MaterialTheme.colorScheme.onSurface
+                            )
                         }
                     },
                     colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.primaryContainer
+                        containerColor = MaterialTheme.colorScheme.surface
                     )
                 )
 
@@ -93,13 +98,25 @@ fun DocenteScreen(
                         selected = selectedTabIndex == 0,
                         onClick = { selectedTabIndex = 0 },
                         text = { Text("Asignación & Intentos") },
-                        icon = { Icon(Icons.Default.Settings, contentDescription = null) }
+                        icon = {
+                            Icon(
+                                Icons.Default.Settings,
+                                contentDescription = null,
+                                tint = if (selectedTabIndex == 0) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
                     )
                     Tab(
                         selected = selectedTabIndex == 1,
                         onClick = { selectedTabIndex = 1 },
                         text = { Text("Informes Pedagógicos (${reports.size})") },
-                        icon = { Icon(Icons.Default.AssignmentTurnedIn, contentDescription = null) }
+                        icon = {
+                            Icon(
+                                Icons.Default.AssignmentTurnedIn,
+                                contentDescription = null,
+                                tint = if (selectedTabIndex == 1) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
                     )
                 }
             }
@@ -153,12 +170,14 @@ private fun OaAssignmentTab(
                     Text(
                         text = "Configuración del Curso (6.º Básico A)",
                         style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = "Selecciona qué OA están activos para los estudiantes y establece el límite de intentos permitidos para la prueba final.",
-                        style = MaterialTheme.typography.bodyMedium
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
                     )
                 }
             }
@@ -188,7 +207,8 @@ private fun OaConfigCard(
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(
@@ -205,7 +225,7 @@ private fun OaConfigCard(
                         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
                         style = MaterialTheme.typography.labelLarge,
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary
+                        color = MaterialTheme.colorScheme.onPrimaryContainer // Corrección aplicada aquí
                     )
                 }
 
@@ -213,7 +233,8 @@ private fun OaConfigCard(
                     Text(
                         text = if (config.isAssignedToStudents) "Asignado" else "Oculto",
                         style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Switch(
@@ -228,7 +249,8 @@ private fun OaConfigCard(
             Text(
                 text = oa.description,
                 style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSurface
             )
 
             Spacer(modifier = Modifier.height(12.dp))
@@ -236,7 +258,8 @@ private fun OaConfigCard(
             Text(
                 text = "Límite de Intentos para la Prueba Final:",
                 style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSurface
             )
 
             Spacer(modifier = Modifier.height(6.dp))
@@ -298,7 +321,8 @@ private fun ReportCard(
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(
@@ -310,12 +334,13 @@ private fun ReportCard(
                     Text(
                         text = "Estudiante: ${report.studentFictionalName}",
                         style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                     Text(
                         text = "${report.subjectTitle} • ${report.oaCode}",
                         style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.primary
+                        color = MaterialTheme.colorScheme.onSurfaceVariant // Corrección aplicada aquí
                     )
                 }
 
@@ -327,7 +352,8 @@ private fun ReportCard(
                         text = report.status.displayName,
                         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
                         style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        color = if (report.status == ReportStatus.VALIDADO) MaterialTheme.colorScheme.onSecondaryContainer else MaterialTheme.colorScheme.onErrorContainer
                     )
                 }
             }
@@ -338,26 +364,51 @@ private fun ReportCard(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(text = "Rendimiento: ${report.scorePercentage}%", fontWeight = FontWeight.Bold, style = MaterialTheme.typography.bodyLarge)
-                Text(text = "Correctas: ${report.correctCount} / ${report.totalCount}", style = MaterialTheme.typography.bodyLarge)
+                Text(
+                    text = "Rendimiento: ${report.scorePercentage}%",
+                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                Text(
+                    text = "Correctas: ${report.correctCount} / ${report.totalCount}",
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
             }
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            Text(text = "Fortalezas:", fontWeight = FontWeight.Bold)
-            Text(text = report.strengthsSummary, style = MaterialTheme.typography.bodyMedium)
+            Text(
+                text = "Fortalezas:",
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+            Text(
+                text = report.strengthsSummary,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurface
+            )
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            Text(text = "Contenidos a Reforzar:", fontWeight = FontWeight.Bold)
-            Text(text = report.reinforcementSummary, style = MaterialTheme.typography.bodyMedium)
+            Text(
+                text = "Contenidos a Reforzar:",
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+            Text(
+                text = report.reinforcementSummary,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurface
+            )
 
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
                 text = "Fecha: ${report.dateFormatted} • Docente: ${report.teacherResponsible}",
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
             Spacer(modifier = Modifier.height(14.dp))
@@ -370,20 +421,28 @@ private fun ReportCard(
                     onClick = onDownload,
                     modifier = Modifier.weight(1f)
                 ) {
-                    Icon(imageVector = Icons.Default.Download, contentDescription = null)
+                    Icon(
+                        imageVector = Icons.Default.Download,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary
+                    )
                     Spacer(modifier = Modifier.width(4.dp))
-                    Text("Descargar")
+                    Text("Descargar", color = MaterialTheme.colorScheme.primary)
                 }
 
                 if (report.status != ReportStatus.VALIDADO) {
                     Button(
                         onClick = onValidate,
                         modifier = Modifier.weight(1f),
-                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
                     ) {
-                        Icon(imageVector = Icons.Default.CheckCircle, contentDescription = null)
+                        Icon(
+                            imageVector = Icons.Default.CheckCircle,
+                            contentDescription = null,
+                            tint = Color.White
+                        )
                         Spacer(modifier = Modifier.width(4.dp))
-                        Text("Validar")
+                        Text("Validar", color = Color.White)
                     }
                 }
             }

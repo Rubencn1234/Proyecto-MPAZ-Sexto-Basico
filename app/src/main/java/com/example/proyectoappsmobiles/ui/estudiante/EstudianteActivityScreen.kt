@@ -62,17 +62,29 @@ fun EstudianteActivityScreen(
             TopAppBar(
                 title = {
                     Column {
-                        Text(text = "Actividades y Desafíos", fontWeight = FontWeight.Bold)
-                        Text(text = selectedSubject?.title ?: "", style = MaterialTheme.typography.bodyMedium)
+                        Text(
+                            text = "Actividades y Desafíos",
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        Text(
+                            text = selectedSubject?.title ?: "",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
                     }
                 },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Volver")
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Volver",
+                            tint = MaterialTheme.colorScheme.onSurface
+                        )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer
+                    containerColor = MaterialTheme.colorScheme.surface
                 )
             )
         }
@@ -94,12 +106,14 @@ fun EstudianteActivityScreen(
                         Text(
                             text = "Ejercicios Prácticos",
                             style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.Bold
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
                             text = "Responde las alternativas. Obtendrás confirmación inmediata y guardarás tu progreso formativo.",
-                            style = MaterialTheme.typography.bodyMedium
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
                         )
                     }
                 }
@@ -155,13 +169,14 @@ private fun PracticeQuestionCard(
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.Top // Alineación superior en caso de títulos largos
             ) {
                 Text(
                     text = question.title,
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.primary
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.weight(1f).padding(end = 8.dp) // Fuerza al título a respetar el espacio
                 )
 
                 Surface(
@@ -172,7 +187,8 @@ private fun PracticeQuestionCard(
                         text = "Dificultad: ${question.difficulty}",
                         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
                         style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSecondaryContainer
                     )
                 }
             }
@@ -182,7 +198,8 @@ private fun PracticeQuestionCard(
             Text(
                 text = question.questionText,
                 style = MaterialTheme.typography.bodyLarge,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.onSurface
             )
 
             Spacer(modifier = Modifier.height(12.dp))
@@ -225,7 +242,8 @@ private fun PracticeQuestionCard(
                         Text(
                             text = optionText,
                             style = MaterialTheme.typography.bodyLarge,
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier.weight(1f),
+                            color = if (isSelected || (isSubmitted && isCorrectOption)) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant
                         )
 
                         if (isSubmitted && isCorrectOption) {

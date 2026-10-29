@@ -59,17 +59,29 @@ fun EstudianteHomeScreen(
             TopAppBar(
                 title = {
                     Column {
-                        Text(text = "¡Hola, ${studentUser?.name ?: "Estudiante"}!", fontWeight = FontWeight.Bold)
-                        Text(text = "Curso: ${studentUser?.courseName ?: "6.º Básico"}", style = MaterialTheme.typography.bodyMedium)
+                        Text(
+                            text = "¡Hola, ${studentUser?.name ?: "Estudiante"}!",
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        Text(
+                            text = "Curso: ${studentUser?.courseName ?: "6.º Básico"}",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
                     }
                 },
                 navigationIcon = {
                     IconButton(onClick = onBackToLogin) {
-                        Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Salir")
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Salir",
+                            tint = MaterialTheme.colorScheme.onSurface
+                        )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer
+                    containerColor = MaterialTheme.colorScheme.surface
                 )
             )
         }
@@ -93,12 +105,14 @@ fun EstudianteHomeScreen(
                         Text(
                             text = "Mis Asignaturas de 6.º Básico",
                             style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.Bold
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSecondaryContainer
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
                             text = "Elige una asignatura para revisar los contenidos explicativos, resolver actividades y rendir tus pruebas finales.",
-                            style = MaterialTheme.typography.bodyMedium
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSecondaryContainer
                         )
                     }
                 }
@@ -162,7 +176,7 @@ private fun SubjectGridCard(
                     Icon(
                         imageVector = icon,
                         contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary,
+                        tint = MaterialTheme.colorScheme.onPrimaryContainer, // Corrección aplicada aquí
                         modifier = Modifier.size(28.dp)
                     )
                 }
@@ -171,7 +185,8 @@ private fun SubjectGridCard(
             Text(
                 text = subject.title,
                 style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSurface
             )
         }
     }
