@@ -39,7 +39,7 @@ import kotlinx.coroutines.launch
         QuestionAttemptEntity::class,
         PedagogicalReportEntity::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -67,6 +67,13 @@ abstract class AppDatabase : RoomDatabase() {
                     .addCallback(object : RoomDatabase.Callback() {
                         override fun onCreate(db: SupportSQLiteDatabase) {
                             super.onCreate(db)
+                            CoroutineScope(Dispatchers.IO).launch {
+                                tempInstance?.let { populateSeedData(it) }
+                            }
+                        }
+
+                        override fun onDestructiveMigration(db: SupportSQLiteDatabase) {
+                            super.onDestructiveMigration(db)
                             CoroutineScope(Dispatchers.IO).launch {
                                 tempInstance?.let { populateSeedData(it) }
                             }

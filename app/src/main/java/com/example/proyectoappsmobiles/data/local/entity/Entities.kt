@@ -11,6 +11,7 @@ import com.example.proyectoappsmobiles.data.model.UserRole
 @Entity(tableName = "users")
 data class UserEntity(
     @PrimaryKey val id: String,
+    val email: String,
     val name: String,
     val role: UserRole,
     val courseName: String = "6.º Básico A"

@@ -15,9 +15,9 @@ import com.example.proyectoappsmobiles.data.model.UserRole
 object SeedData {
 
     val users = listOf(
-        UserEntity("utp_01", "Camila Soto (Jefatura UTP)", UserRole.UTP, "Colegio MPAZ 6.º"),
-        UserEntity("doc_01", "Prof. Roberto Gómez", UserRole.DOCENTE, "6.º Básico A"),
-        UserEntity("est_01", "Estudiante Ficticio", UserRole.ESTUDIANTE, "6.º Básico A")
+        UserEntity("utp_01", "jefatura@utp", "Camila Soto (Jefatura UTP)", UserRole.UTP, "Colegio MPAZ 6.º"),
+        UserEntity("doc_01", "profesor@profe", "Prof. Roberto Gómez", UserRole.DOCENTE, "6.º Básico A"),
+        UserEntity("est_01", "estudiante@estudio", "Estudiante Ficticio", UserRole.ESTUDIANTE, "6.º Básico A")
     )
 
     val subjects = listOf(
